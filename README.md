@@ -301,8 +301,8 @@ unreachable the visitor still gets the normal page.
 - **Pages and static files:** plugin deactivated and active in three interleaved
   pairs, from an address that is not an AI agent. Each phase had 40 requests to
   a cached page, 40 to a theme stylesheet and 8 to an uncached page. The first
-  plugin-off cached phase is left out of the cached figure, because connection
-  setup doubled during it (about 257 ms against about 107 ms).
+  pair is left out of the cached figure, because connection setup doubled during
+  its plugin-off phase (about 257 ms against about 107 ms).
 - **Mirror:** `?agent=true` on three pages, alternated with the normal page, 30
   requests each, plus 6 uncached requests per page. Every mirror response was
   confirmed by its `x-norg-edge: mirror` header.
