@@ -4,7 +4,7 @@
  *
  * The PHP plugin is a port, so its unit tests assert against outputs computed
  * HERE by the real code: the worker's own exports, functions extracted from its
- * source text (for the ones it does not export), workers/lib, and the
+ * source text (for the ones it does not export), its lib/, and the
  * provider-neutral strip tokenizer the CloudFront/Bunny adapters ship.
  *
  * Usage: node wordpress/bin/gen-vectors.mjs   (CI re-runs it and fails on a diff)
@@ -12,17 +12,17 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import * as worker from "../../workers/edge-router-worker.js";
-import { classifyRequest, classifyScriptAutomation } from "../../workers/lib/classify.mjs";
-import { pathToKeySuffix } from "../../workers/lib/r2-content.mjs";
-import { cidrContains, cidrVerdictFor, parseIp } from "../../workers/lib/cidr.mjs";
-import { deriveCanonicalUrl } from "../../workers/lib/alternate-format.mjs";
-import { detectCitationReferral } from "../../workers/lib/referral.mjs";
-import { detectDeviceType } from "../../workers/lib/page-view.mjs";
+import * as worker from "../tests/reference/worker/edge-router-worker.js";
+import { classifyRequest, classifyScriptAutomation } from "../tests/reference/worker/lib/classify.mjs";
+import { pathToKeySuffix } from "../tests/reference/worker/lib/r2-content.mjs";
+import { cidrContains, cidrVerdictFor, parseIp } from "../tests/reference/worker/lib/cidr.mjs";
+import { deriveCanonicalUrl } from "../tests/reference/worker/lib/alternate-format.mjs";
+import { detectCitationReferral } from "../tests/reference/worker/lib/referral.mjs";
+import { detectDeviceType } from "../tests/reference/worker/lib/page-view.mjs";
 import { stripHtml, countVisibleWords } from "../tests/reference/core/strip.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const workerSource = readFileSync(join(here, "../../workers/edge-router-worker.js"), "utf8");
+const workerSource = readFileSync(join(here, "../tests/reference/worker/edge-router-worker.js"), "utf8");
 
 /** Extract one top-level declaration's source text (function or const) by brace matching. */
 function extract(kind, name) {
