@@ -279,10 +279,13 @@ It covers:
   SHA-256 in content-craft's `services/edge_routing/wordpress_pin.py` and
   `EDGE_WORKER_VERSION_WORDPRESS`.
 
-The worker source (`workers/`, `src/`) is also in this repo, because the
-plugin's test vectors are generated from it (`wordpress/bin/gen-vectors.mjs`).
+A copy of the worker's logic is kept in `wordpress/tests/reference/worker/`,
+because the plugin's test vectors are generated from it
+(`wordpress/bin/gen-vectors.mjs`). It is test input only and is not deployed.
 CI fails if the vectors are stale, so classification, paths and strip output
-stay identical to the worker.
+stay identical to the worker. When the worker's logic changes in the
+[Cloudflare repo](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy),
+copy the change here and regenerate the vectors.
 
 ---
 
