@@ -267,6 +267,54 @@ services".
 
 ---
 
+## Performance
+
+Norg tested plugin 0.1.4 on its own test site on 5 November 2026. The numbers
+are time to first byte (TTFB) measured with curl from one workstation outside
+Azure, so each includes about 110 ms of connection setup. The targets are the
+ones proposed for the Cloudflare Worker, used here for comparison; they are not
+guarantees.
+
+**The test site is small and slow, so it is not a typical host:**
+WordPress on Azure Container Apps (Australia East, 0.5 vCPU, one replica),
+SQLite on a network file share, with WP Rocket. An uncached page takes about
+6.2 s. Compare the differences rather than the absolute numbers. Mirrored pages
+were the crawled "Original" version, 14 to 15 KB, with no AI rewriting.
+
+| Measure | Proposed target | Measured | Met? |
+|---|---|---|---|
+| Added TTFB for pages | At most 30 ms at p50 and 60 ms at p95 | Page from WP Rocket's cache: about 5 ms at p50 and 4 ms at p95 (the plugin does not run on a cache hit). Uncached page: no measurable difference, 60 ms faster at p50 and 22 ms slower at p95, inside about 240 ms of spread between runs | Cached: met. Uncached: not proven, the origin is too noisy |
+| Added TTFB for static files | At most 5 ms at p50 (the plugin does not run) | About 2 ms: 133 ms with the plugin off, 135 ms on | Met |
+| Mirror TTFB | At most 300 ms at p50 and 600 ms at p95, measured absolutely | 404 to 428 ms at p50 and 822 to 1,060 ms at p95 across three pages. The first request to a page took up to 1,540 ms. The same pages took 185 to 193 ms at p50 from WP Rocket's cache and 6,034 to 6,269 ms uncached | **Not met** |
+| Mirror fetch hanging, warm feed | At most 4 s plus the page's normal TTFB | About 3.9 s added in 14 of 20 requests; no added delay in the other 6, not yet explained. Every request got the normal page | Met |
+| Norg unreachable, cold feed | At most 5 s plus TTFB | About 4.9 s added (5 requests). Every request got the normal page | Met |
+| Slow bot list, then mirror hanging, cold feed | Up to about 9 s plus TTFB | About 8.5 s added (4 requests). Every request got the normal page | Met |
+
+**What this means:** the mirror runs inside WordPress, after WordPress has
+loaded, so it cannot match a CDN edge. On this site a mirror page is about 15
+times faster than an uncached page, but about twice as slow as a page WP Rocket
+has already cached. People are unaffected either way, and if Norg is
+unreachable the visitor still gets the normal page.
+
+### Method
+
+- **Pages and static files:** plugin deactivated and active in three interleaved
+  pairs, from an address that is not an AI agent. Each phase had 40 requests to
+  a cached page, 40 to a theme stylesheet and 8 to an uncached page. The first
+  plugin-off cached phase is left out of the cached figure, because connection
+  setup doubled during it (about 257 ms against about 107 ms).
+- **Mirror:** `?agent=true` on three pages, alternated with the normal page, 30
+  requests each, plus 6 uncached requests per page. Every mirror response was
+  confirmed by its `x-norg-edge: mirror` header.
+- **Fallback:** `content_base` and, for the unreachable case, `api_url` pointed
+  at an address that never answers, and the cached feed deleted before each cold
+  request. The slow bot list was simulated by a temporary must-use plugin adding
+  a 4.5 s delay. Settings were restored and verified afterwards.
+
+Sample sizes for the uncached and fallback cases are small (4 to 20 requests).
+
+---
+
 ## For NORG engineers
 
 The plugin's developer reference is [`wordpress/README.md`](wordpress/README.md).
