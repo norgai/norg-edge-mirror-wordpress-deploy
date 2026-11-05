@@ -9,9 +9,9 @@ name: WordPress plugin
 on:
   push:
     branches: [main, feature/wordpress-plugin]
-    paths: ["wordpress/**", "workers/**", ".github/workflows/wordpress.yml"]
+    paths: ["wordpress/**", ".github/workflows/wordpress.yml"]
   pull_request:
-    paths: ["wordpress/**", "workers/**", ".github/workflows/wordpress.yml"]
+    paths: ["wordpress/**", ".github/workflows/wordpress.yml"]
 
 defaults:
   run:

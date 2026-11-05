@@ -1,6 +1,6 @@
 # NORG Edge Router — WordPress plugin
 
-The same edge router as the Cloudflare Worker in this repo, as a WordPress plugin,
+The same edge router as the [Cloudflare Worker](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy), as a WordPress plugin,
 for sites that will not put Cloudflare or another CDN in front of themselves.
 Installed inside WordPress, it decides per request who is asking:
 
