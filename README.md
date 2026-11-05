@@ -1,12 +1,12 @@
 # NORG Edge Router — WordPress plugin
 
-This branch holds the **WordPress plugin** version of NORG's edge router, for
+This repo holds the **WordPress plugin** version of NORG's edge router, for
 WordPress sites with no Cloudflare or other CDN in front of them. You don't
 change DNS, you don't create an API token, and you don't deploy a worker.
 Install a plugin and give it two values.
 
-> **On Cloudflare?** Use the Cloudflare Worker on
-> [`main`](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy/tree/main)
+> **On Cloudflare?** Use the
+> [Cloudflare Worker](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy)
 > instead. It runs before any cache and needs no plugin. Other CDNs are listed
 > under [Other CDNs](#other-cdns).
 
@@ -279,22 +279,28 @@ It covers:
   SHA-256 in content-craft's `services/edge_routing/wordpress_pin.py` and
   `EDGE_WORKER_VERSION_WORDPRESS`.
 
-The worker source (`workers/`, `src/`) is also on this branch, because the
-plugin's test vectors are generated from it (`wordpress/bin/gen-vectors.mjs`).
+A copy of the worker's logic is kept in `wordpress/tests/reference/worker/`,
+because the plugin's test vectors are generated from it
+(`wordpress/bin/gen-vectors.mjs`). It is test input only and is not deployed.
 CI fails if the vectors are stale, so classification, paths and strip output
-stay identical to the worker.
+stay identical to the worker. When the worker's logic changes in the
+[Cloudflare repo](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy),
+copy the change here and regenerate the vectors.
 
 ---
 
 ## Other CDNs
 
-| Platform | Branch | Install guide |
-|---|---|---|
-| **Cloudflare** | [`main`](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy/tree/main) | [README](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy/blob/main/README.md) |
-| **AWS CloudFront** | [`feature/aws-cloudfront`](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy/tree/feature/aws-cloudfront) | [`aws/README.md`](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy/blob/feature/aws-cloudfront/aws/README.md) |
-| **Fastly Compute** | [`feature/fastly-compute`](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy/tree/feature/fastly-compute) | [`fastly/README.md`](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy/blob/feature/fastly-compute/fastly/README.md) |
-| **Bunny Edge Scripting** | [`feature/bunny-edge-scripting`](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy/tree/feature/bunny-edge-scripting) | [`bunny/README.md`](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy/blob/feature/bunny-edge-scripting/bunny/README.md) |
-| **WordPress (no CDN)** | `feature/wordpress-plugin` (this branch) | this README |
+Each platform has its own repo, with official releases on `main`.
+
+| Platform | Repo |
+|---|---|
+| **Cloudflare** | [`norg-edge-mirror-cloudflare-deploy`](https://github.com/norgai/norg-edge-mirror-cloudflare-deploy) |
+| **AWS CloudFront** | [`norg-edge-mirror-cloudfront-deploy`](https://github.com/norgai/norg-edge-mirror-cloudfront-deploy) |
+| **Fastly Compute** | [`norg-edge-mirror-fastly-deploy`](https://github.com/norgai/norg-edge-mirror-fastly-deploy) |
+| **Bunny Edge Scripting** | [`norg-edge-mirror-bunny-deploy`](https://github.com/norgai/norg-edge-mirror-bunny-deploy) |
+| **Next.js and Vercel** | [`norg-edge-mirror-nextjs-deploy`](https://github.com/norgai/norg-edge-mirror-nextjs-deploy) |
+| **WordPress (no CDN)** | this repo |
 
 ---
 

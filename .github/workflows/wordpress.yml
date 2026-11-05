@@ -9,9 +9,9 @@ name: WordPress plugin
 on:
   push:
     branches: [main, feature/wordpress-plugin]
-    paths: ["wordpress/**", "workers/**", ".github/workflows/wordpress.yml"]
+    paths: ["wordpress/**", ".github/workflows/wordpress.yml"]
   pull_request:
-    paths: ["wordpress/**", "workers/**", ".github/workflows/wordpress.yml"]
+    paths: ["wordpress/**", ".github/workflows/wordpress.yml"]
 
 defaults:
   run:
@@ -61,7 +61,8 @@ jobs:
 
   e2e:
     name: End-to-end (real WordPress, PHP ${{ matrix.php }})
-    runs-on: ubuntu-latest
+    # Playwright 1.55 cannot install on ubuntu-latest (26.04): no ffmpeg build.
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     strategy:
       matrix:
