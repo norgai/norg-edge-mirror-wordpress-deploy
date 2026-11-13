@@ -1839,6 +1839,28 @@
       }
     },
     {
+      "referer": "https://copilot.com/chats/abc",
+      "utm": null,
+      "host": "shop.example.com",
+      "detection": {
+        "citation_source": "copilot",
+        "citation_category": "ai_assistant",
+        "citation_source_host": "copilot.com",
+        "citation_detection": "referer"
+      }
+    },
+    {
+      "referer": "https://www.copilot.com/",
+      "utm": null,
+      "host": "shop.example.com",
+      "detection": {
+        "citation_source": "copilot",
+        "citation_category": "ai_assistant",
+        "citation_source_host": "www.copilot.com",
+        "citation_detection": "referer"
+      }
+    },
+    {
       "referer": "https://selleys.com.au/",
       "utm": "chatgpt.com",
       "host": "www.selleys.com.au",
