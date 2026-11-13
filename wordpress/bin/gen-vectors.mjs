@@ -151,6 +151,7 @@ const REFERRALS = [
   ["https://example.com/page", null], ["https://www.example.com/", "chatgpt.com"], ["https://unknown.test/", "copilot"],
   [null, "Perplexity"], [null, "newsletter"], [null, null], ["not a url", null], ["https://www.bing.com/", null],
   ["https://copilot.microsoft.com/", "copilot.com"], ["https://sub.chatgpt.com/", null],
+  ["https://copilot.com/chats/abc", null], ["https://www.copilot.com/", null],
   // Two-label public suffixes: the page host is the third element.
   ["https://selleys.com.au/", "chatgpt.com", "www.selleys.com.au"], ["https://fosroc.com.au/", "chatgpt.com", "www.selleys.com.au"],
   ["https://chatgpt.com/", null, "www.selleys.com.au"], ["https://www.bbc.co.uk/", "openai", "news.example.co.uk"],
