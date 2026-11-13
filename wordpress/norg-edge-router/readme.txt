@@ -4,7 +4,7 @@ Tags: ai, llms.txt, ai search, crawlers, chatgpt
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.1.4
+Stable tag: 0.1.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,9 @@ Tick **Disable** in the settings, define `NORG_EDGE_DISABLED` as true in wp-conf
 Yes. **Visitor IP comes from** defaults to *Detect automatically*, which uses Cloudflare's CF-Connecting-IP when the request comes from a Cloudflare address, and the last X-Forwarded-For (or X-Real-IP) hop when it comes from a private or shared-space proxy such as a load balancer or Azure Container Apps. Pick a fixed source only if detection reports the wrong one on the status page.
 
 == Changelog ==
+
+= 0.1.5 =
+* **Citation tracking**: a visit referred from copilot.com (Copilot's current address) is now recorded as a Copilot citation even when the link carries no `utm_source`.
 
 = 0.1.4 =
 * **Citation tracking**: a site under a two-part domain ending (`.com.au`, `.co.uk`, `.co.nz` and similar) is no longer treated as the same site as every other site under that ending, so a visit referred from another `.com.au` site is no longer dropped as a self-referral.

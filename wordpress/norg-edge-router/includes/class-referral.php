@@ -24,6 +24,7 @@ final class Referral {
 		'claude.ai'             => array( 'claude', 'ai_assistant' ),
 		'gemini.google.com'     => array( 'gemini', 'ai_assistant' ),
 		'copilot.microsoft.com' => array( 'copilot', 'ai_assistant' ),
+		'copilot.com'           => array( 'copilot', 'ai_assistant' ),
 		'google.com'            => array( 'google', 'search' ),
 		'bing.com'              => array( 'bing', 'search' ),
 	);
