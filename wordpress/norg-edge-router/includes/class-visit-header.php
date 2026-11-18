@@ -5,7 +5,7 @@
  * PHP has no waitUntil, so the plugin hands the visit to NORG's content
  * receptionist in one request header (base64url JSON) on the fetch it awaits
  * anyway, and the receptionist records the event server-side. Fields and widths
- * match infrastructure/cloudflare/workers/lib/visit-header.mjs in content-craft.
+ * match NORG's edge-worker visit-header module.
  *
  * @package NorgEdgeRouter
  */
