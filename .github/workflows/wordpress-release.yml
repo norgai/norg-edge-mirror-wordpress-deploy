@@ -1,6 +1,6 @@
 # Release the WordPress plugin: tag wordpress-vX.Y.Z builds both channel zips,
 # refuses a tag that disagrees with the plugin's version, and publishes a
-# GitHub Release whose NORG-channel zip is what content-craft's wordpress_pin.py
+# GitHub Release whose NORG-channel zip is what NORG's backend plugin pin
 # points at. The job summary prints the SHA-256 to pin there.
 name: WordPress plugin release
 
@@ -29,7 +29,7 @@ jobs:
           case "$NORG_ZIP" in *"-$TAG_VERSION-norg.zip") ;; *) echo "tag $GITHUB_REF_NAME does not match the plugin version ($NORG_ZIP)"; exit 1;; esac
           SHA=$(sha256sum "$NORG_ZIP" | cut -d' ' -f1)
           {
-            echo "### Pin this in content-craft"
+            echo "### Pin this in NORG's backend"
             echo '```python'
             echo "GA = PluginRelease(version=\"$TAG_VERSION\", sha256=\"$SHA\")"
             echo '```'

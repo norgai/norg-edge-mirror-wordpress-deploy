@@ -5,7 +5,7 @@
  *
  * These are a deliberate COPY of the declarations in
  * `workers/edge-router-worker.js`, not an import. The Cloudflare worker's
- * bundle is pinned by SHA-256 in content-craft and its EDGE_SCRIPT_VERSION is
+ * bundle is pinned by SHA-256 by NORG and its EDGE_SCRIPT_VERSION is
  * matched against a backend setting, so refactoring shared values out of that
  * file would change the shipped bundle and tell every installed Cloudflare site
  * an update is available until the backend catches up. Copying costs nothing at
@@ -155,7 +155,7 @@ export const UNENTITLED = Object.freeze({
 export const DEFAULT_AGENTIC_PATH_PREFIX = "/ai";
 
 // NORG answering with one of these is a decision, not an outage: the key is
-// wrong, or the site is paused/uninstalled (site_auth.py returns 401 and 403
+// wrong, or the site is paused/uninstalled (NORG's API answers 401 and 403
 // respectively). Cached entitlement is dropped immediately on either.
 export const REFUSAL_STATUSES = new Set([401, 403]);
 
@@ -185,8 +185,8 @@ export const STRIP_REMOVE_SELECTORS = [
 
 // Wrapper-only elements: the tag itself carries no informational value, but
 // (unlike STRIP_REMOVE_SELECTORS) its text content often does — accordion/
-// nav toggles routinely wrap a real label in a <button> (live example:
-// gymshark.com's mobile menu — <h5><button><span>Trending</span></button></h5>).
+// nav toggles routinely wrap a real label in a <button> (for example a
+// mobile menu: <h5><button><span>Trending</span></button></h5>).
 // Remove the wrapper, keep its content.
 export const STRIP_UNWRAP_SELECTORS = ["button"];
 
@@ -235,8 +235,8 @@ export const OPENAI_FEED_PATHS = new Set([
 // which is the source of truth, MINUS .xml/.txt/.json — those are excluded on
 // purpose: /llms.txt, /tree.json, /graph.jsonld, /.well-known/mcp.json and
 // /openapi.json are NORG's own surfaces and a blanket rule here would proxy
-// them to the customer's origin. Do NOT "complete" this list from the Python
-// one; tests/test_edge_worker_asset_suffixes.py fails if the subset breaks.
+// them to the customer's origin. Do NOT "complete" this list from any other
+// copy: NORG's own test suite fails if the subset breaks.
 //
 // Extension-less asset URLs (/img?id=123) are not covered. Sec-Fetch-Dest
 // would catch them, but it is a browser fetch-metadata convention that
